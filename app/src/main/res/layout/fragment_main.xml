@@ -7,6 +7,22 @@
     android:layout_height="match_parent"
     tools:context=".fragments.MainFragment">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:contentDescription="add new calf"
+        android:src="@drawable/ic_add_black_24"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
