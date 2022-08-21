@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elliottsoftware.calftracker2.R
 import com.elliottsoftware.calftracker2.databinding.FragmentMainBinding
 import com.elliottsoftware.calftracker2.databinding.IndivCalfViewBinding
+import com.elliottsoftware.calftracker2.models.Calf
 import com.elliottsoftware.calftracker2.recyclerViews.CalfListAdapter
 import com.elliottsoftware.calftracker2.util.CalfApplication
 import com.elliottsoftware.calftracker2.viewModels.CalfViewModel
@@ -23,13 +25,14 @@ import com.elliottsoftware.calftracker2.viewModels.CalfViewModelFactory
  * Use the [MainFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), CalfListAdapter.OnCalfListener {
     private  var _binding:FragmentMainBinding? = null
     //this property is only valid between onCreateView on onDestroy
     private val binding get() = _binding!!
     private val calfViewModel: CalfViewModel by viewModels {
         CalfViewModelFactory((activity?.application as CalfApplication).repository)
     }
+    private lateinit var allCalves:LiveData<List<Calf>>;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +53,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = binding.recyclerview
-        val adapter = CalfListAdapter()
+        val adapter = CalfListAdapter(this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
         //add an observer on the LiveData returned by allCalves();
@@ -58,17 +61,24 @@ class MainFragment : Fragment() {
         calfViewModel.allCalves.observe(viewLifecycleOwner, Observer { calves ->
             calves?.let{adapter.submitList(it)}
         })
+        allCalves = calfViewModel.allCalves
         binding.fab.setOnClickListener{
             Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_newCalfFragment)
         }
-
-
-
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+
+    override fun onCalfClick(calfId: Long) {
+        //allCalves.value?.get(position) //index of the current calf
+        val action = MainFragmentDirections.actionMainFragmentToUpdateCalfFragment(calfId)
+
+        Navigation.findNavController(binding.root).navigate(action)
     }
 
 
