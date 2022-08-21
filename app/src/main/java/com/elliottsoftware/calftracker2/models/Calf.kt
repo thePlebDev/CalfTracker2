@@ -7,7 +7,7 @@ import java.util.*
 @Entity
 data class Calf(
 
-    val tagNumber: String,
+    var tagNumber: String,
     val CCIANumber: String,
     val sex:String,
     val details:String,

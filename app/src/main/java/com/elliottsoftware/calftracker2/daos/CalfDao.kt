@@ -1,9 +1,6 @@
 package com.elliottsoftware.calftracker2.daos
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.elliottsoftware.calftracker2.models.Calf
 import kotlinx.coroutines.flow.Flow
 
@@ -17,6 +14,15 @@ interface CalfDao {
 
     @Query("DELETE FROM calf")
     suspend fun deleteAll()
+
+    @Delete
+    suspend fun deleteCalf( calf: Calf):Int
+
+    @Update
+    suspend fun updateCalf(calf:Calf)
+
+    @Query("SELECT * FROM calf WHERE calf.id==:calfId")
+    suspend fun findCalf(calfId:Long):Calf
 
 
 }

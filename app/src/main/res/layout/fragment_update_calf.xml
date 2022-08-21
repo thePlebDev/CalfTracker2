@@ -5,10 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".fragments.UpdateCalfFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="UPDATE CALF" />
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 
 </FrameLayout>
