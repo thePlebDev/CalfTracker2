@@ -1,70 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="16dp"
-    >
-    <com.google.android.material.textfield.TextInputLayout
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/edit_tag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:endIconMode="clear_text"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Tag Number"
-            android:inputType="text"
-            android:minHeight="48dp"
-            android:textColorHint="#757575"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
+        android:hint="Tag Number"
+        android:inputType="text"/>
+    <EditText
+        android:id="@+id/edit_cciaNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:endIconMode="clear_text"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_cciaNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="CCIA Number"
-            android:inputType="text"
-            android:minHeight="48dp"
-            android:textColorHint="#757575"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+        android:hint="CCIA Number"
+        android:inputType="text"/>
 
-    <com.google.android.material.textfield.TextInputLayout
+    <EditText
+        android:id="@+id/edit_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:endIconMode="clear_text"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Description"
-            android:inputType="text"
-            android:minHeight="48dp"
-            android:textColorHint="#757575"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-
+        android:hint="Description"
+        android:inputType="text"/>
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/update_radio_group"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:checkedButton="@+id/radio_heifer">
         <RadioButton
             android:id="@+id/radio_heifer"
-            android:checked="true"
             android:text="Heifer"
 
             android:layout_width="wrap_content"
@@ -78,7 +47,6 @@
             android:layout_height="wrap_content"
             />
     </RadioGroup>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/new_calf_constraint_layout"
         android:layout_width="match_parent"

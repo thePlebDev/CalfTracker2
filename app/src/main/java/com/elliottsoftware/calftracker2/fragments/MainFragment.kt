@@ -29,9 +29,11 @@ class MainFragment : Fragment(), CalfListAdapter.OnCalfListener {
     private  var _binding:FragmentMainBinding? = null
     //this property is only valid between onCreateView on onDestroy
     private val binding get() = _binding!!
+
     private val calfViewModel: CalfViewModel by viewModels {
         CalfViewModelFactory((activity?.application as CalfApplication).repository)
     }
+
     private lateinit var allCalves:LiveData<List<Calf>>;
 
     override fun onCreate(savedInstanceState: Bundle?) {

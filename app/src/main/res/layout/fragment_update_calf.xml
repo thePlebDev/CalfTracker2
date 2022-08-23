@@ -1,16 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.UpdateCalfFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/update_tag"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:hint="Tag Number"
+        android:inputType="text"/>
+    <EditText
+        android:id="@+id/update_cciaNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="CCIA Number"
+        android:inputType="text"/>
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/update_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Description"
+        android:inputType="text"/>
+
+    <RadioGroup
+        android:id="@+id/update_radio_group"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/radio_heifer"
+            android:text="Heifer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            />
+        <RadioButton
+            android:id="@+id/radio_bull"
+            android:text="Bull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </RadioGroup>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/new_calf_constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/new_calf_fab_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_close_black_24"
+            android:contentDescription="cancel adding new calf"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/new_calf_fab_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_add_black_24"
+            android:contentDescription="add new calf"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

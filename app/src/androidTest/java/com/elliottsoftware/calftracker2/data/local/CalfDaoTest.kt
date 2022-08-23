@@ -80,7 +80,6 @@ class CalfDaoTest {
     fun deleteCalfTest() = runBlocking {
         //GIVEN
         val calf = Calf("TESTING","more","again","fds", Date())
-        val calf2 = Calf("TESTING","more","again","fds", Date())
 
         //WHEN
         calfDao.insert(calf)
