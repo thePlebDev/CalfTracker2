@@ -20,4 +20,13 @@ class CalfRepository(private val calfDao: CalfDao) {
         //suspend tells the compiler the this needs to be called from a coroutine or another suspending function
         calfDao.insert(calf)
     }
+
+    @WorkerThread
+    suspend fun findCalf(calfId:Long):Calf{
+        return calfDao.findCalf(calfId)
+    }
+    @WorkerThread
+    suspend fun updateCalf(calf:Calf){
+        calfDao.updateCalf(calf)
+    }
 }
