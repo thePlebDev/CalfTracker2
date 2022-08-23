@@ -27,6 +27,11 @@ class CalfViewModel(private val repository: CalfRepository): ViewModel() {
     fun updateCalf(calf:Calf) = viewModelScope.launch {
         repository.updateCalf(calf)
     }
+
+    //coroutine to delete a calf and return the id
+    fun delete(calf:Calf) = viewModelScope.launch {
+        repository.deleteCalf(calf)
+    }
 }
 
 class CalfViewModelFactory(private val repository: CalfRepository): ViewModelProvider.Factory{
