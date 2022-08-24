@@ -3,7 +3,6 @@ package com.elliottsoftware.calftracker2.recyclerViews
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -29,6 +28,10 @@ class CalfListAdapter(private val onCalfListener: OnCalfListener) :ListAdapter<C
 
          fun onCalfClick(calfId:Long)
 
+    }
+
+    fun getCalfAt(position: Int): Calf? {
+        return getItem(position)
     }
 
 }
