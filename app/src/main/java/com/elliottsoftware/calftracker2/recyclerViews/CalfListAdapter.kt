@@ -3,7 +3,9 @@ package com.elliottsoftware.calftracker2.recyclerViews
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
 import android.widget.TextView
+import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +14,7 @@ import com.elliottsoftware.calftracker2.models.Calf
 import java.text.SimpleDateFormat
 
 class CalfListAdapter(private val onCalfListener: OnCalfListener) :ListAdapter<Calf,CalfViewHolder>(CalfComparator()){
+    private var oldData = emptyList<Calf>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalfViewHolder {
         return CalfViewHolder.create(parent, onCalfListener)
@@ -33,6 +36,11 @@ class CalfListAdapter(private val onCalfListener: OnCalfListener) :ListAdapter<C
     fun getCalfAt(position: Int): Calf? {
         return getItem(position)
     }
+    fun setData(newData: List<Calf>){
+        oldData = newData
+        notifyDataSetChanged()
+    }
+
 
 }
 //--------------------------------VIEW HOLDER CLASS----------------------------
@@ -83,7 +91,7 @@ class CalfComparator : DiffUtil.ItemCallback<Calf>(){
     }
 
     override fun areContentsTheSame(oldItem: Calf, newItem: Calf): Boolean {
-        return oldItem.tagNumber == newItem.tagNumber
+        return oldItem == newItem
     }
 
 }

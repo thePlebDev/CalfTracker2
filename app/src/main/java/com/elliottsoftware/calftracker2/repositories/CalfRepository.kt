@@ -11,7 +11,7 @@ class CalfRepository(private val calfDao: CalfDao) {
 
     //Room executes all the queries on a separate thread
     // Observed Flow will notify the observer when the data has changed
-    val allCalves: Flow<List<Calf>> = calfDao.getAllCalves();
+    val allCalves: Flow<MutableList<Calf>> = calfDao.getAllCalves();
 
 
     @Suppress("RedundantSuspendModifier")
@@ -32,5 +32,9 @@ class CalfRepository(private val calfDao: CalfDao) {
     @WorkerThread
     suspend fun deleteCalf(calf:Calf){
         calfDao.deleteCalf(calf)
+    }
+
+    fun searchDatabase(searchQuery:String):Flow<List<Calf>>{
+        return calfDao.searchDatabase(searchQuery)
     }
 }

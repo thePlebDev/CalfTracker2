@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class CalfViewModel(private val repository: CalfRepository): ViewModel() {
 
-    val allCalves: LiveData<List<Calf>> = repository.allCalves.asLiveData()
+    val allCalves: LiveData<MutableList<Calf>> = repository.allCalves.asLiveData()
 
     //launching a new coroutine to insert the data in a non-blocking way
     fun insert(calf:Calf) = viewModelScope.launch{
@@ -31,6 +31,11 @@ class CalfViewModel(private val repository: CalfRepository): ViewModel() {
     //coroutine to delete a calf and return the id
     fun delete(calf:Calf) = viewModelScope.launch {
         repository.deleteCalf(calf)
+    }
+
+    //Search database by tag number
+    fun searchDatabase(searchQuery: String):LiveData<List<Calf>>{
+        return repository.searchDatabase(searchQuery).asLiveData()
     }
 }
 
