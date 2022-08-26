@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CalfDao {
     @Query("SELECT * FROM calf ORDER BY  date ASC")
-    fun getAllCalves():Flow<List<Calf>>
+    fun getAllCalves():Flow<MutableList<Calf>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(calf:Calf)
@@ -23,6 +23,9 @@ interface CalfDao {
 
     @Query("SELECT * FROM calf WHERE calf.id==:calfId")
     suspend fun findCalf(calfId:Long):Calf
+
+    @Query("SELECT * FROM calf WHERE tagNumber LIKE :searchQuery")
+    fun searchDatabase(searchQuery:String): Flow<List<Calf>>
 
 
 }
