@@ -102,7 +102,7 @@ class MainFragment : Fragment(), CalfListAdapter.OnCalfListener,MenuProvider, Se
 
 
 
-
+    //QUERY RELATED METHODS
     override fun onQueryTextSubmit(query: String?): Boolean {
         if(query != null){
             searchDatabase(query)

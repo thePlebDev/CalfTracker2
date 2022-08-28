@@ -21,33 +21,33 @@ class SwipeBackgroundHelper {
 
         @JvmStatic
         fun paintDrawCommandToStart(
-            canvas: Canvas,
-            viewItem: View,
-            @DrawableRes iconResId: Int,
-            dX: Float
+            canvas: Canvas, //recyclerView canvas
+            viewItem: View, // the viewItem being swiped
+            @DrawableRes iconResId: Int, //trashcan icon
+            dX: Float // the change in x
         ) {
-            val drawCommand = createDrawCommand(viewItem, dX, iconResId)
+            val drawCommand = createDrawCommand(viewItem, dX, iconResId) // gets the icon and sets the colors
             paintDrawCommand(drawCommand, canvas, dX, viewItem)
         }
 
         @SuppressLint("RestrictedApi")
         private fun createDrawCommand(viewItem: View, dX: Float, iconResId: Int): DrawCommand {
             val context = viewItem.context
-            var icon = ContextCompat.getDrawable(context, iconResId)!!
-            icon = DrawableCompat.wrap(icon).mutate()
+            var icon = ContextCompat.getDrawable(context, iconResId)!! //the trash icon Drawable
+            icon = DrawableCompat.wrap(icon).mutate() //making the Drawable mutable
             icon.colorFilter = PorterDuffColorFilter(ContextCompat.getColor(context, R.color.white),
-                PorterDuff.Mode.SRC_IN)
-            val backgroundColor = getBackgroundColor(R.color.red, R.color.white, dX, viewItem)!!
+                PorterDuff.Mode.SRC_IN)// setting the color
+            val backgroundColor = getBackgroundColor(R.color.red, R.color.white, dX, viewItem)
             return DrawCommand(icon, backgroundColor)
         }
         private fun getBackgroundColor(firstColor: Int, secondColor: Int, dX: Float, viewItem: View): Int {
             return when (willActionBeTriggered(dX, viewItem.width)) {
-                true -> ContextCompat.getColor(viewItem.context, firstColor)
-                false -> ContextCompat.getColor(viewItem.context, secondColor)
+                true -> ContextCompat.getColor(viewItem.context, firstColor) //red color
+                false -> ContextCompat.getColor(viewItem.context, secondColor) // normal white color
             }
         }
         private fun willActionBeTriggered(dX: Float, viewWidth: Int): Boolean {
-            return Math.abs(dX) >= viewWidth / THRESHOLD
+            return Math.abs(dX) >= viewWidth / THRESHOLD // when the red will appear
         }
         private fun paintDrawCommand(drawCommand: DrawCommand, canvas: Canvas, dX: Float, viewItem: View) {
             drawBackground(canvas, viewItem, dX, drawCommand.backgroundColor)
@@ -66,7 +66,7 @@ class SwipeBackgroundHelper {
             val topBound = viewItem.top + topMargin
             val bottomBound = viewItem.bottom - topMargin
 
-            return Rect(leftBound, topBound, rightBound, bottomBound)
+            return Rect(leftBound, topBound, rightBound, bottomBound) //drawing the icon dimensions
         }
 
         private fun calculateTopMargin(icon: Drawable, viewItem: View): Int {
@@ -78,6 +78,7 @@ class SwipeBackgroundHelper {
             val backgroundRectangle = getBackGroundRectangle(viewItem, dX)
             canvas.drawRect(backgroundRectangle, backgroundPaint)
         }
+
         private fun getBackGroundRectangle(viewItem: View, dX: Float): RectF {
             return RectF(viewItem.right.toFloat() + dX, viewItem.top.toFloat(), viewItem.right.toFloat(),
                 viewItem.bottom.toFloat())
@@ -88,5 +89,6 @@ class SwipeBackgroundHelper {
 
 
 
+    //used to handle and encapsulate resources
     private class DrawCommand internal constructor(internal val icon: Drawable, internal val backgroundColor: Int)
 }
