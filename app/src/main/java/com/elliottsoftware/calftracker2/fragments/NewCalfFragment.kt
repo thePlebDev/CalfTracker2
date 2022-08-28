@@ -10,15 +10,14 @@ import android.widget.RadioButton
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.elliottsoftware.calftracker2.R
-import com.elliottsoftware.calftracker2.daos.CalfDao
 import com.elliottsoftware.calftracker2.databinding.FragmentNewCalfBinding
 import com.elliottsoftware.calftracker2.models.Calf
-import com.elliottsoftware.calftracker2.repositories.CalfRepository
 import com.elliottsoftware.calftracker2.util.CalfApplication
+import com.elliottsoftware.calftracker2.util.SnackBarActions
 import com.elliottsoftware.calftracker2.viewModels.CalfViewModel
 import com.elliottsoftware.calftracker2.viewModels.CalfViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
 
@@ -83,6 +82,7 @@ class NewCalfFragment : Fragment() {
             val details:String = details.text.toString()
             val cciaNumber:String = cCIANumber.text.toString()
             val sex:String = buttonIsChecked(bull)
+
             saveCalf(tagNumber,details,cciaNumber,sex,it)
 
         }
@@ -99,10 +99,19 @@ class NewCalfFragment : Fragment() {
             "Heifer"
         }
     }
-    private fun saveCalf(tagNumber: String,details:String,cciaNumber:String,sex:String,view:View){
+    private fun saveCalf(
+        tagNumber: String,
+        details: String,
+        cciaNumber: String,
+        sex: String,
+        view: View,
+    ){
         if(!validateTagNumber(tagNumber)){
             // this should run if the tagNumber is not empty
             calfViewModel.insert(Calf(tagNumber,cciaNumber,sex,details, Date()))
+            val snackBar = Snackbar.make(view,"Calf $tagNumber created",Snackbar.LENGTH_LONG)
+            snackBar.setAction("DISMISS",SnackBarActions(snackBar))
+            snackBar.show()
             Navigation.findNavController(view).navigate(R.id.action_newCalfFragment_to_mainFragment)
         }
     }

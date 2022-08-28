@@ -21,10 +21,6 @@ class SwipeToDelete(private val calfViewModel: CalfViewModel, private val calfLi
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
 
-
-//        calfViewModel.allCalves.value?.removeAt(viewHolder.adapterPosition)
-//        calfListAdapter.notifyItemRemoved(viewHolder.adapterPosition)
-        //calfViewModel.delete(calfListAdapter.getCalfAt(viewHolder.adapterPosition)!!)
         val calf  = calfListAdapter.currentList[viewHolder.adapterPosition]
         calfViewModel.delete(calf)
 
