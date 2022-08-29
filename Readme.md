@@ -9,6 +9,7 @@
 - Search functionality
 
 ### Upcoming Features
+- code clean up (less spaghetti  more garlic bread)
 - improved UI
 - birth weight and additional tag numbers
 - networking capabilities
