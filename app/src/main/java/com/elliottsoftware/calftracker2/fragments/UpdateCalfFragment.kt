@@ -26,9 +26,8 @@ import java.util.*
 
 
 /**
- * A simple [Fragment] subclass.
- * Use the [UpdateCalfFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * A simple [Fragment] subclass used to instantiate and reuses the [R.layout.fragment_new_calf]
+ * and to handle basic logic
  */
 class UpdateCalfFragment : Fragment() {
 
@@ -48,11 +47,11 @@ class UpdateCalfFragment : Fragment() {
     private lateinit var calfDate: Date
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
-
+    /**
+     * Will inflate the XML file via View Binding, also gets references to basic
+     * view items
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -70,6 +69,10 @@ class UpdateCalfFragment : Fragment() {
         return view
     }
 
+    /**
+     * handles all the business logic needed for the [R.layout.fragment_new_calf]
+     * file
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -90,6 +93,13 @@ class UpdateCalfFragment : Fragment() {
         }
     }
 
+    /**
+     * private utility function to retireve the appropriate calf from the database
+     * and fill in the UI appropriately
+     * @param[calfId] unique identifier of the Calf
+     *
+     * @return
+     */
     private suspend fun setCalfOnMainThread(calfId:Long){
         val foundCalf = calfViewModel.findCalf(calfId)
         updateTagNumber.setText(foundCalf.tagNumber)
@@ -100,11 +110,20 @@ class UpdateCalfFragment : Fragment() {
 
     }
 
+    /**
+     * sets _binding = null to avoid memory leaks with View Binding
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
+    /**
+     * private utility function used to determine the sex of the calf
+     * @param[sex] the sex of the calf
+     *
+     * @return
+     */
     private fun updateSex(sex:String){
         if(sex == "Bull"){
             updateSexBULL.isChecked = true
@@ -112,6 +131,15 @@ class UpdateCalfFragment : Fragment() {
             updateSexHEIFER.isChecked = true
         }
     }
+    /**
+     * private utility function used to validate the tag is not empty and update the calf
+     * @param[tagNumber] tag number entered by the user
+     * @param[details] details entered by the user
+     * @param[cciaNumber] ccia number entered by theyser
+     * @param[isBull] used to determine the sex of the calf
+     *
+     * @return
+     */
     private fun updateCalf(tagNumber: String,details:String,cciaNumber: String,isBull:Boolean){
         if(!tagNumberIsEmpty(tagNumber)){
             val sex = checkSex(isBull)
@@ -123,6 +151,12 @@ class UpdateCalfFragment : Fragment() {
 
     }
 
+    /**
+     * private utility function used to check if the tag is empty
+     * @param[tagNumber] tag number entered by the calf
+     *
+     * @return a boolean to determine if the tag number is empty
+     */
     private fun tagNumberIsEmpty(tagNumber:String):Boolean{
         //if statements are expressions in Kotlin
         return if(tagNumber.isEmpty()){
@@ -134,6 +168,12 @@ class UpdateCalfFragment : Fragment() {
 
     }
 
+    /**
+     * private utility function used to check the sex of the calf
+     * @param[isBull] determines is the sex is a bull or heifer
+     *
+     * @return sex of the calf to be saved to the database
+     */
     private fun checkSex(isBull: Boolean):String{
         return if(isBull){
             "Bull"
