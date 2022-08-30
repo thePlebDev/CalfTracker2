@@ -13,6 +13,7 @@ import com.elliottsoftware.calftracker2.R
 import com.elliottsoftware.calftracker2.databinding.FragmentNewCalfBinding
 import com.elliottsoftware.calftracker2.models.Calf
 import com.elliottsoftware.calftracker2.util.CalfApplication
+import com.elliottsoftware.calftracker2.util.CalfUtil
 import com.elliottsoftware.calftracker2.util.SnackBarActions
 import com.elliottsoftware.calftracker2.viewModels.CalfViewModel
 import com.elliottsoftware.calftracker2.viewModels.CalfViewModelFactory
@@ -127,7 +128,7 @@ class NewCalfFragment : Fragment() {
         sex: String,
         view: View,
     ){
-        if(!validateTagNumber(tagNumber)){
+        if(!CalfUtil.validateTagNumber(tagNumber,this.tagNumber)){
             // this should run if the tagNumber is not empty
             calfViewModel.insert(Calf(tagNumber,cciaNumber,sex,details, Date()))
             val snackBar = Snackbar.make(view,"Calf $tagNumber created",Snackbar.LENGTH_LONG)
@@ -137,20 +138,5 @@ class NewCalfFragment : Fragment() {
         }
     }
 
-    /**
-     * private utility function to determine if the tag number is empty or not
-     * @param[tagNumber] the tag number entered by teh user
-     * @return boolean detecting if the tag number is empty
-     */
-    private fun validateTagNumber(tagNumber:String):Boolean{
-        //if statements are expressions in Kotlin
-        return if(tagNumber.isEmpty()){
-            binding.editTag.error = "Field can not be empty"
-            true;
-        }else{
-            false;
-        }
-
-    }
 
 }
