@@ -15,6 +15,7 @@ import com.elliottsoftware.calftracker2.databinding.FragmentNewCalfBinding
 import com.elliottsoftware.calftracker2.databinding.FragmentUpdateCalfBinding
 import com.elliottsoftware.calftracker2.models.Calf
 import com.elliottsoftware.calftracker2.util.CalfApplication
+import com.elliottsoftware.calftracker2.util.CalfUtil
 import com.elliottsoftware.calftracker2.viewModels.CalfViewModel
 import com.elliottsoftware.calftracker2.viewModels.CalfViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -87,9 +88,9 @@ class UpdateCalfFragment : Fragment() {
         }
         updateButton.setOnClickListener{
             updateCalf(updateTagNumber.text.toString(),updateDetails.text.toString(),
-                updateCCIANumber.text.toString(), updateSexBULL.isChecked)
+                updateCCIANumber.text.toString(), updateSexBULL.isChecked,view)
 
-            Navigation.findNavController(view).navigate(R.id.action_updateCalfFragment_to_mainFragment)
+
         }
     }
 
@@ -140,33 +141,17 @@ class UpdateCalfFragment : Fragment() {
      *
      * @return
      */
-    private fun updateCalf(tagNumber: String,details:String,cciaNumber: String,isBull:Boolean){
-        if(!tagNumberIsEmpty(tagNumber)){
+    private fun updateCalf(tagNumber: String,details:String,cciaNumber: String,isBull:Boolean,view: View){
+        if(!CalfUtil.validateTagNumber(tagNumber,this.updateTagNumber)){
             val sex = checkSex(isBull)
             calfViewModel.updateCalf(Calf(tagNumber,cciaNumber,sex,details,calfDate,args.calfId))
-            
+            Navigation.findNavController(view).navigate(R.id.action_updateCalfFragment_to_mainFragment)
 
         }
 
 
     }
 
-    /**
-     * private utility function used to check if the tag is empty
-     * @param[tagNumber] tag number entered by the calf
-     *
-     * @return a boolean to determine if the tag number is empty
-     */
-    private fun tagNumberIsEmpty(tagNumber:String):Boolean{
-        //if statements are expressions in Kotlin
-        return if(tagNumber.isEmpty()){
-            updateTagNumber.error = "Field can not be empty"
-            true;
-        }else{
-            false;
-        }
-
-    }
 
     /**
      * private utility function used to check the sex of the calf
