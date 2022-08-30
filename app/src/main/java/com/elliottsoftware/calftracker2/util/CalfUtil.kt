@@ -1,12 +1,13 @@
 package com.elliottsoftware.calftracker2.util
 
 import android.widget.EditText
+import android.widget.RadioButton
 
 class CalfUtil {
 
     companion object {
         /**
-         * private utility function to determine if the tag number is empty or not
+         *  utility function to determine if the tag number is empty or not
          * @param[tagNumber] the tag number entered by teh user
          * @return boolean detecting if the tag number is empty
          */
@@ -17,6 +18,20 @@ class CalfUtil {
                 true;
             } else {
                 false;
+            }
+        }
+
+        /**
+         *  utility function to determine the sex of the calf
+         * @param[radioButton] the bull radio button to determine if it was
+         * clicked of not
+         * @return the sex of the calf to be saved
+         */
+         fun buttonIsChecked(radioButton: RadioButton):String{
+            return if(radioButton.isChecked){
+                "Bull"
+            }else{
+                "Heifer"
             }
         }
     }

@@ -143,7 +143,7 @@ class UpdateCalfFragment : Fragment() {
      */
     private fun updateCalf(tagNumber: String,details:String,cciaNumber: String,isBull:Boolean,view: View){
         if(!CalfUtil.validateTagNumber(tagNumber,this.updateTagNumber)){
-            val sex = checkSex(isBull)
+            val sex = CalfUtil.buttonIsChecked(updateSexBULL)
             calfViewModel.updateCalf(Calf(tagNumber,cciaNumber,sex,details,calfDate,args.calfId))
             Navigation.findNavController(view).navigate(R.id.action_updateCalfFragment_to_mainFragment)
 
@@ -152,19 +152,5 @@ class UpdateCalfFragment : Fragment() {
 
     }
 
-
-    /**
-     * private utility function used to check the sex of the calf
-     * @param[isBull] determines is the sex is a bull or heifer
-     *
-     * @return sex of the calf to be saved to the database
-     */
-    private fun checkSex(isBull: Boolean):String{
-        return if(isBull){
-            "Bull"
-        }else{
-            "Heifer"
-        }
-    }
 
 }
