@@ -95,4 +95,7 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$rootProject.androidxJunitVersion"
 
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
+
+    //SlidePlaneLayout
+    implementation "androidx.slidingpanelayout:slidingpanelayout:1.2.0"
 }

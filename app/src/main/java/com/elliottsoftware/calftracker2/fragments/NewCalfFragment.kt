@@ -81,11 +81,13 @@ class NewCalfFragment : Fragment() {
             val tagNumber:String = tagNumber.text.toString()
             val details:String = details.text.toString()
             val cciaNumber:String = cCIANumber.text.toString()
-            val sex:String = buttonIsChecked(bull)
+            val sex:String = CalfUtil.buttonIsChecked(bull)
 
             saveCalf(tagNumber,details,cciaNumber,sex,it)
 
         }
+
+
     }
 
     /**
@@ -96,19 +98,7 @@ class NewCalfFragment : Fragment() {
         _binding = null
     }
 
-    /**
-     * private utility function to determine the sex of the calf
-     * @param[radioButton] the bull radio button to determine if it was
-     * clicked of not
-     * @return the sex of the calf to be saved
-     */
-    private fun buttonIsChecked(radioButton: RadioButton):String{
-        return if(radioButton.isChecked){
-            "Bull"
-        }else{
-            "Heifer"
-        }
-    }
+
     /**
      * private utility function to save the calf to the Room database and navigate
      * back to home fragment.
@@ -134,7 +124,7 @@ class NewCalfFragment : Fragment() {
             val snackBar = Snackbar.make(view,"Calf $tagNumber created",Snackbar.LENGTH_LONG)
             snackBar.setAction("DISMISS",SnackBarActions(snackBar))
             snackBar.show()
-            Navigation.findNavController(view).navigate(R.id.action_newCalfFragment_to_mainFragment)
+           // Navigation.findNavController(view).navigate(R.id.action_newCalfFragment_to_mainFragment)
         }
     }
 

@@ -32,7 +32,7 @@ import java.util.*
  */
 class UpdateCalfFragment : Fragment() {
 
-    private var _binding:FragmentUpdateCalfBinding? = null
+    private var _binding:FragmentNewCalfBinding? = null
     private val binding get() = _binding!!
     private val args: UpdateCalfFragmentArgs by navArgs()
     private val calfViewModel: CalfViewModel by viewModels {
@@ -58,13 +58,13 @@ class UpdateCalfFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentUpdateCalfBinding.inflate(inflater,container,false)
+        _binding = FragmentNewCalfBinding.inflate(inflater,container,false)
         val view = binding.root
         cancelButton = binding.newCalfFabLeft;
         updateButton = binding.newCalfFabRight;
-        updateTagNumber = binding.updateTag
-        updateDetails = binding.updateDescription
-        updateCCIANumber = binding.updateCciaNumber
+        updateTagNumber = binding.editTag
+        updateDetails = binding.editDescription
+        updateCCIANumber = binding.editCciaNumber
         updateSexBULL = binding.radioBull
         updateSexHEIFER = binding.radioHeifer
         return view
