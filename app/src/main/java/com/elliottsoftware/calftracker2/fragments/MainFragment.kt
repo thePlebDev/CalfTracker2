@@ -1,7 +1,9 @@
 package com.elliottsoftware.calftracker2.fragments
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.*
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -20,6 +22,7 @@ import com.elliottsoftware.calftracker2.util.CalfApplication
 import com.elliottsoftware.calftracker2.util.SwipeToDelete
 import com.elliottsoftware.calftracker2.viewModels.CalfViewModel
 import com.elliottsoftware.calftracker2.viewModels.CalfViewModelFactory
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 /**
@@ -38,6 +41,7 @@ class MainFragment : Fragment(), CalfListAdapter.OnCalfListener,MenuProvider, Se
     private val calfViewModel: CalfViewModel by viewModels {
         CalfViewModelFactory((activity?.application as CalfApplication).repository)
     }
+    private lateinit var fabButton:FloatingActionButton
 
 
     private lateinit var recyclerView:RecyclerView
@@ -59,7 +63,7 @@ class MainFragment : Fragment(), CalfListAdapter.OnCalfListener,MenuProvider, Se
         recyclerView = binding.recyclerview
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
-
+        fabButton = binding.fab
         val view = binding.root
         return view
     }
@@ -81,11 +85,15 @@ class MainFragment : Fragment(), CalfListAdapter.OnCalfListener,MenuProvider, Se
         })
 
 
-        binding.fab.setOnClickListener{
+        fabButton.setOnClickListener{
             Navigation.findNavController(it).navigate(R.id.action_mainFragment_to_newCalfFragment)
         }
 
         ItemTouchHelper(SwipeToDelete(calfViewModel,adapter)).attachToRecyclerView(recyclerView)
+        val orientation:Int = resources.configuration.orientation
+        if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+            fabButton.hide()
+        }
 
     }
 
@@ -166,7 +174,9 @@ class MainFragment : Fragment(), CalfListAdapter.OnCalfListener,MenuProvider, Se
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.main_menu,menu)
         val search = menu?.findItem(R.id.menu_search)
+
         val searchView = search?.actionView as? SearchView
+        searchView?.imeOptions = EditorInfo.IME_FLAG_NO_EXTRACT_UI
         searchView?.queryHint = "Search Tag Number"
         searchView?.isSubmitButtonEnabled = true
         searchView?.setOnQueryTextListener(this)
