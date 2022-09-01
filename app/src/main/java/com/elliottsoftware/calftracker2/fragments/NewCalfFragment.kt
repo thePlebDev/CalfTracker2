@@ -1,5 +1,6 @@
 package com.elliottsoftware.calftracker2.fragments
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -42,6 +43,7 @@ class NewCalfFragment : Fragment() {
     private lateinit var bull: RadioButton
     private lateinit var heifer: RadioButton
     private lateinit var calfDate: Date
+    private lateinit var fabLeft:FloatingActionButton
 
     /**
      * Will inflate the XML file via View Binding, also gets references to basic
@@ -61,7 +63,7 @@ class NewCalfFragment : Fragment() {
         cCIANumber = binding.editCciaNumber
         bull = binding.radioBull
         heifer = binding.radioHeifer
-
+        fabLeft = binding.newCalfFabLeft
 
 
         return view
@@ -74,7 +76,7 @@ class NewCalfFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.newCalfFabLeft.setOnClickListener{
+        fabLeft.setOnClickListener{
             Navigation.findNavController(view).navigate(R.id.action_newCalfFragment_to_mainFragment)
         }
         binding.newCalfFabRight.setOnClickListener{
@@ -85,6 +87,10 @@ class NewCalfFragment : Fragment() {
 
             saveCalf(tagNumber,details,cciaNumber,sex,it)
 
+        }
+        val orientation:Int = resources.configuration.orientation
+        if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+            fabLeft.hide()
         }
 
 
